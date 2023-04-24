@@ -16,6 +16,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//자바는 db와 연동하기 위해서 필요
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+
+	//DB클라이언트
+    runtimeOnly 'com.h2database:h2'
 }
 
 tasks.named('test') {

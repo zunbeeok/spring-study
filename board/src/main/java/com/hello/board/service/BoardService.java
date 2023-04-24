@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.hello.board.dto.BoardDto;
 // import com.hello.board.dto.BoardDto;
-import com.hello.board.entity.BoardEntity;
+import com.hello.board.entity.Board;
 import com.hello.board.repository.BoardJpaRepository;
 
 @Service
@@ -24,8 +24,8 @@ public class BoardService {
         this.boardJpaRepository = boardJpaRepository;
     }
 
-    public List<BoardEntity> getBoardList(){
-        List<BoardEntity> boardList = boardJpaRepository.findAll();
+    public List<Board> getBoardList(){
+        List<Board> boardList = boardJpaRepository.findAll();
         return boardList;
     }
 
@@ -43,10 +43,9 @@ public class BoardService {
 
     public void setBoard(Board board){
         SimpleDateFormat dateFormat =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String nowTime = dateFormat.format(LocalDate.now());
+        dateFormat.format(LocalDate.now());
         BoardDto boardDto= new BoardDto();
-        boardDto.setDate(nowTime);
-        
+        boardDto.setDate();
         boardJpaRepository.save(board);
     }
 

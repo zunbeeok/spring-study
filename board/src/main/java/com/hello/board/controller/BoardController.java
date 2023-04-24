@@ -61,10 +61,12 @@ public class BoardController {
 
     //body로 받을때 writeForm객체에 어떻게 데이터가 맵핑되는지 궁금하다.
     //Board는 entity고 controller에 entity를 적는건 위험하다고 했던것 같다.
-    //어떻게 고쳐야 테스트 주도 설계에 맞게 될수있을까 entity를 여기에 적는게 맞을까?
+    //어떻게 고쳐야 테스트 주도 설계에 맞게 될수있을까 entit
     @PostMapping(value="/write")
-    public void postMethodName(Board board) {
-        boardService.setBoard(board);
+    public void postMethodName(Board writeForm) {
+        boardService.setBoard(writeForm);
+        //TODO: process POST request
+        // return entity;
     }
     
 }
