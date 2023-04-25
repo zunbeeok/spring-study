@@ -24,10 +24,19 @@ public class JdbcMemberRepository implements MemberRepository {
     ResultSet rs = null;
     try {
       conn = getConnection();
+
+      //파라미터 넣을수 있게 셋팅;
       pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+      //?에 값 넣기
       pstmt.setString(1, member.getName());
+      // 쿼리 전송
       pstmt.executeUpdate();
+
+      //키 꺼내기
       rs = pstmt.getGeneratedKeys();
+
+      //rs.next로 값 있는지 확인.
       if (rs.next()) {
         member.setId(rs.getLong(1));
       } else {
@@ -39,6 +48,7 @@ public class JdbcMemberRepository implements MemberRepository {
     } finally {
       close(conn, pstmt, rs);
     }
+    //db 사용후에는 무조건 릴리즈를 해야한다. 무조건 db 사용후에ㅔ 릴리즈 하기.
   }
 
   @Override
@@ -52,6 +62,8 @@ public class JdbcMemberRepository implements MemberRepository {
       pstmt = conn.prepareStatement(sql);
       pstmt.setLong(1, id);
       rs = pstmt.executeQuery();
+
+      //멤버 객체 조회시 member 객체 생성 및 값 세팅.
       if (rs.next()) {
         Member member = new Member();
         member.setId(rs.getLong("id"));
@@ -82,6 +94,7 @@ public class JdbcMemberRepository implements MemberRepository {
         Member member = new Member();
         member.setId(rs.getLong("id"));
         member.setName(rs.getString("name"));
+        System.out.print(members);
         members.add(member);
       }
       return members;
@@ -117,6 +130,8 @@ public class JdbcMemberRepository implements MemberRepository {
     }
   }
 
+  //스프링에서 커넥션을 할떄는 DataSourceUtils을 사용해야한다.
+  // static 개념인가?
   private Connection getConnection() {
     return DataSourceUtils.getConnection(dataSource);
   }
