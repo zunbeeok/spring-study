@@ -3,12 +3,14 @@ package hello.hellospring.service;
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 // @Service
+// @Transactional
 public class MemberService {
 
   // 기존코드 => 클래스 안에서 직접생성
@@ -27,6 +29,8 @@ public class MemberService {
   /**
    * 회원가입
    */
+  @Transactional
+  //jpa는 트랜잭션 필수
   public Long join(Member member) {
     validateDuplicateMember(member);
     memberRepository.save(member);
