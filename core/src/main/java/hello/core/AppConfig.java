@@ -10,28 +10,35 @@ import hello.core.member.MemberServiceImpl;
 import hello.core.member.MemoryMemberRepository;
 import hello.core.order.OrderService;
 import hello.core.order.OrderServiceImpl;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 //기존 : 현재 AppConfig를 보면 중복이 있고, 역할에 따른 구현이 잘 안보인다.
 
 //리팩터링 후 : 중복을 제거하고, 역할에 따른 구현이 보이도록 리팩터링 하자.
 
 //AppConfig 를 보면 역할과 구현 클래스가 한눈에 들어온다. 애플리케이션 전체 구성이 어떻게 되어있는지 빠르게 파악할 수 있다.
+@Configuration
 public class AppConfig {
 
   //MemberServiceImpl이 생성자로 생성될때 MemoryMemberRepository를 생성시켜줌.
+  @Bean
   public MemberService memberService() {
     // return new MemberServiceImpl(new MemoryMemberRepository());
     return new MemberServiceImpl(memberRepository());
   }
 
+  @Bean
   public MemberRepository memberRepository() {
     return new MemoryMemberRepository();
   }
 
+   @Bean
   public OrderService orderService() {
     return new OrderServiceImpl(memberRepository(), discountPolicy());
   }
 
+  @Bean
   public DiscountPolicy discountPolicy() {
     // return new FixDiscountPolicy();
     return new RateDiscountPolicy();
