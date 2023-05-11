@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
 //리팩터링 후 : 중복을 제거하고, 역할에 따른 구현이 보이도록 리팩터링 하자.
 
 //AppConfig 를 보면 역할과 구현 클래스가 한눈에 들어온다. 애플리케이션 전체 구성이 어떻게 되어있는지 빠르게 파악할 수 있다.
+// 팩터리 메서드 기반
 @Configuration
 public class AppConfig {
 
