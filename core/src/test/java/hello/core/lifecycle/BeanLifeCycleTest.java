@@ -1,5 +1,6 @@
 package hello.core.lifecycle;
 
+import lombok.ToString;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -16,6 +17,7 @@ public class BeanLifeCycleTest {
     }
     @Configuration
     static class LifeCycleConfig {
+        // @Bean(initMethod = "init" ,destroyMethod = "close")
         @Bean
         public NetworkClient networkClient() {
             NetworkClient networkClient = new NetworkClient();
